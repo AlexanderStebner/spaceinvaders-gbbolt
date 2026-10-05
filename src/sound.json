@@ -1,0 +1,51 @@
+{
+  "_doc": "How tools/audio.py drives Space Invaders' sound engine. RAM names come from ram.inc. A sound is started the way VBlank does it: its number in entry 1 of wSoundQueue, wSoundQueueEnd = 1, wSoundQueuePos = 0, then PlayQueuedSound. The engine itself runs in the timer interrupt (TimerHandler, about 60 times a second: 4096 Hz / 68); it reads rNR52 to see which channels have fallen silent, so the APU's channel status is put there before every tick. A sound plays while bit 0 of any channel record's flags (+1) is set.",
+  "init": "InitSound",
+  "update": "TimerHandler",
+  "update_hz": 60.235,
+  "nr52_status": true,
+  "power_on": [["rNR52", 128], ["rNR51", 255], ["rNR50", 119]],
+  "stack": "0xCFF0",
+  "kinds": {
+    "music": {
+      "label": "Jingles",
+      "request_call": "PlayQueuedSound",
+      "request_addr": "0xD803",
+      "setup": {"wSoundQueueEnd": 1, "wSoundQueuePos": 0},
+      "playing": ["0xD132", "0xD13A", "0xD142", "0xD14A"],
+      "playing_mask": 1,
+      "ids": {"list": [24, 25, 28]},
+      "max_seconds": 20
+    },
+    "sfx": {
+      "label": "Sound effects",
+      "request_call": "PlayQueuedSound",
+      "request_addr": "0xD803",
+      "setup": {"wSoundQueueEnd": 1, "wSoundQueuePos": 0},
+      "playing": ["0xD132", "0xD13A", "0xD142", "0xD14A"],
+      "playing_mask": 1,
+      "ids": {"list": [5, 6, 7, 8, 11, 12, 15, 18, 19, 20, 21, 22, 23, 26, 27]},
+      "max_seconds": 6
+    }
+  },
+  "names": {
+    "music 24": ["The winner's jingle", "ShowLinkWin: the link game is won"],
+    "music 25": ["The loser's jingle", "ShowLinkLoss: the link game is lost"],
+    "music 28": ["An unused tune", "SndUnusedTune: three channels, but no code requests it"],
+    "sfx 5": ["The cannon fires", "MoveCannonAndFire (sounds $05-$07: left, middle, right of the screen)"],
+    "sfx 6": ["The cannon fires (middle)", "MoveCannonAndFire"],
+    "sfx 7": ["The cannon fires (right)", "MoveCannonAndFire"],
+    "sfx 8": ["An invader is hit", "CheckShotHitsInvader (sounds $08-$0A by the side of the screen)"],
+    "sfx 11": ["The cannon is destroyed", "CannonHit"],
+    "sfx 12": ["The UFO flies", "SpawnUfo: it loops for as long as the UFO is on screen (sounds $0C-$0E by side)"],
+    "sfx 15": ["The UFO is hit", "UpdateUfoHit (sounds $0F-$11 by side)"],
+    "sfx 18": ["High swept tone", "UpdateUfoHit; in a link game when the opponent is hit"],
+    "sfx 19": ["Extra cannon / new hi-score", "AddScore, UpdateHiScore"],
+    "sfx 20": ["March, note 1", "PlayMarchStep: the four march notes, one per step of the formation"],
+    "sfx 21": ["March, note 2", "PlayMarchStep"],
+    "sfx 22": ["March, note 3", "PlayMarchStep"],
+    "sfx 23": ["March, note 4", "PlayMarchStep"],
+    "sfx 26": ["An unused blip", "SndUnusedBlip: no code requests it"],
+    "sfx 27": ["A secret code is entered", "CheckTitleCheatCodes, CheckGameCheatCodes"]
+  }
+}

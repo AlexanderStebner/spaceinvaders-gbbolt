@@ -1,0 +1,89 @@
+# Virtual folders, in reading order: path | description
+# Functions say where they live with `;@ path: folder/sub`; data blocks without a
+# path go to the folder of the functions that use them.
+system | Power-on, interrupts and the hardware services used everywhere.
+system/vectors | The fixed addresses the CPU jumps to: restarts, interrupt vectors and the LCD hooks next to them.
+system/header | The cartridge header: entry point, Nintendo logo, title and checksums.
+system/boot | Power-on: memory, the OAM DMA routine, the LCD and the interrupts.
+system/interrupts | The interrupt handlers: VBlank, the HBlank hooks that touch VRAM a tile at a time, timer and serial.
+system/vblank | What happens in every VBlank: the sprites, the sound requests, the hooks.
+system/joypad | Reading the buttons, with a history of the presses for the secret codes.
+system/lcd | Switching the LCD off and on, clearing the background.
+system/memory | Copying memory.
+system/delay | The busy-wait delays that pace the game.
+title | The title screen, the credits, the attract mode and the menus.
+title/credit | The developer credit at power-on.
+title/intro | The logo coming in and the wait for START.
+title/screen | Drawing the title screen.
+title/demo | The PLAY SPACE INVADERS screen with the score table and the upside-down Y.
+title/menu | One or two players, and the number of cannons in a link game.
+game | The game loop, the rounds and what comes between them.
+game/main | The main loop of a round.
+game/start | Starting a new game.
+game/round | Starting and clearing a round.
+game/pause | The pause.
+game/cheats | The secret button codes on the title screen and in the game.
+game/coffeebreak | The coffee breaks after rounds 10 and 20.
+game/ending | The ending after round 30.
+game/over | Game over.
+game/screens | Screens between rounds and the wait for START.
+invaders | The formation of 40 invaders.
+invaders/setup | Where the formation starts in each round.
+invaders/formation | The layout of the formation.
+invaders/draw | Drawing the invaders into the background.
+invaders/march | The march: one invader moves per step, the formation turns and comes down at the edges.
+invaders/kill-codes | Secret orders of shooting the invaders that rebuild the formation, restore the shields or stop the bombs.
+player | The cannon.
+player/move | Moving the cannon and firing.
+player/hit | The cannon is hit.
+shots | The cannon's shot and the invaders' bombs.
+shots/move | Moving the shot and the bombs; the homing ones of the secret modes.
+shots/bombs/drop | Which invader drops which bomb, and when.
+shots/hits | What a shot or a bomb hits.
+shots/hit-invader | The shot hits an invader.
+shields | The four shields, kept as tiles in RAM and eaten away pixel by pixel.
+shields/init | Setting up the shields for a round.
+shields/data | The shields' tiles and the crater masks.
+shields/gfx | Copying the shield tiles to VRAM.
+shields/hits | Checking bombs and the shot against the shields.
+shields/craters | Shifting a crater mask onto the point of the hit.
+shields/craters/bomb | Cutting a bomb's crater into one of the 24 shield tiles.
+shields/craters/shot | Cutting the shot's crater into one of the 24 shield tiles.
+ufo | The mystery ship.
+ufo/timer | When the UFO comes.
+ufo/spawn | Starting the UFO on one side.
+ufo/move | Flying across.
+ufo/draw | Its sprites.
+ufo/hit | The UFO is hit.
+ufo/score | What the UFO is worth.
+score | The score, the hi-score and the cannons left.
+score/score | Adding to the score.
+score/hiscore | The hi-score.
+score/lives | The cannons left and the extra cannons.
+score/digits | Writing digits.
+link | Two players over the link cable.
+link/menu | Choosing the link game and the number of cannons.
+link/start | Starting a link game.
+link/sync | Keeping both Game Boys in step.
+link/serial | The serial transfers.
+link/round | Rounds in a link game.
+link/lives | The opponent's cannons.
+link/result | Winning and losing.
+link/end | The end of a link game.
+link/screen | Link-game screens.
+text | Texts and how they are written.
+text/draw | Typing a text letter by letter.
+text/demo | The texts of the attract mode.
+text/sprites | Texts made of sprites.
+gfx | Graphics.
+gfx/tiles | Tile graphics.
+gfx/tilemap | Screens as lists of rows of tiles.
+gfx/oam | Sprite tables.
+sound | The sound engine, run by the timer interrupt, and its 29 sounds.
+sound/engine | Starting sounds and the tick that plays them.
+sound/march | The march beat.
+sound/data | The sound table, note frequencies and the wave patterns.
+sound/headers | One header per sound: which channels it uses and their streams.
+sound/streams | The note streams, one per channel of a sound.
+unused | Code and data nothing uses.
+unused/hooks | VBlank hooks that are never selected.
