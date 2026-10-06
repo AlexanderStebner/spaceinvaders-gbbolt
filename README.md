@@ -15,6 +15,8 @@ side, each short piece of Python directly above the few instructions that do it.
   (`invaders/march`, `shields/craters/bomb`, `ufo/score`, `link/sync`, `sound/streams`, ...).
 - **Screens, played by the game's own code**: the title, the attract mode, the starting formation
   of every round height, both coffee breaks and the ending.
+- **Secret codes**: a sheet with every button code and kill order, when the game looks for it and
+  what it does, with the game's own pictures of the effects.
 - **Sound**: the sound engine is fully annotated; its jingles and sound effects are rendered from
   it, with a piano roll and mute / solo per channel.
 
